@@ -1,11 +1,13 @@
 const router = require('express').Router()
-const userRouter = require('./userRouter')
+const userRouter = require('./UserRouter')
+const postRouter = require('./PostRouter')
 
 router.get('/', (req, res, next)=>{
     res.send('Hello world')
 })
 
 router.use('/user', userRouter)
+router.use('/post', postRouter)
 
 router.use(notFound)
 router.use(errorHandler)
