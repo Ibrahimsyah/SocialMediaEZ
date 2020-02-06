@@ -11,6 +11,6 @@ const db = mysql.createPool({
 db.query('select 1 + 1 as result', (err, res)=>{
     if(err) console.log(err)
     console.log('Connected to DB')
-})
+});
 
 module.exports = db
