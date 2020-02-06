@@ -8,7 +8,7 @@ const db = mysql.createPool({
 })
 
 db.query('select 1 + 1 as result', (err, res)=>{
-    if(err) throw err
+    if(err) console.log(err)
     console.log('Connected to DB')
 })
 
