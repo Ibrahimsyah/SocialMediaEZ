@@ -3,8 +3,9 @@ require('dotenv').config()
 
 const db = mysql.createPool({
     database: process.env.DB_NAME,
-    host: process.env.DB_host,
-    user: process.env.DB_user
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD
 })
 
 db.query('select 1 + 1 as result', (err, res)=>{
