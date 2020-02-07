@@ -5,7 +5,7 @@ const likeRouter = require('./LikeRouter')
 const commentRouter = require('./CommentRouter')
 
 router.get('/', (req, res, next) => {
-    res.send('Hello world')
+    res.send('BCC 2020')
 })
 
 router.use('/user', userRouter)

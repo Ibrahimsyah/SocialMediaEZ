@@ -67,16 +67,27 @@ const loginUser = async (req, res, next) => {
     }
 }
 
-const getAllUser = async (req, res, next) =>{
+const getAllUser = async (req, res, next) => {
     const [rows] = await db.query('select id, name, email from user')
     res.json({
-        "success" : true,
-        "message" : "users loaded cihui",
-        "data" : rows
+        "success": true,
+        "message": "users loaded cihui",
+        "data": rows
+    })
+}
+
+const getUserById = async (req, res, next) => {
+    const id = req.params.id_user
+    const [rows] = await db.query('select id, name, email from user where id = ?', [id])
+    res.json({
+        "success": true,
+        "message": "users loaded cihui",
+        "data": rows[0]
     })
 }
 module.exports = {
     registerUser,
     loginUser,
-    getAllUser
+    getAllUser,
+    getUserById
 }
