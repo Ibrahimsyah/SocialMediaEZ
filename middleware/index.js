@@ -12,6 +12,7 @@ const checkToken = async (req, res, next) => {
                     const error = new Error("Wrong Token")
                     next(error)
                 }else{
+                    req.user = result
                     next()
                 }
             })

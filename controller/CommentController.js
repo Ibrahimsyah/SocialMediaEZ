@@ -2,11 +2,12 @@ const db = require('../database');
 
 module.exports = {
   postComment: async (req, res, next) => {
-    const { id_user, id_post } = req.query;
+    const { id_user } = req.user;
+    const { id } = req.params;
     const { content } = req.body;
     const errors = [];
     try {
-      const [postResult,] = await db.query('SELECT * FROM post WHERE id=?', [id_post]);
+      const [postResult,] = await db.query('SELECT * FROM post WHERE id=?', [id]);
       const [userResult,] = await db.query('SELECT * FROM user WHERE id=?', [id_user]);
       if (!postResult.length) errors.push({ post: 'post not found' });
       if (!userResult.length) errors.push({ user: 'user not found' });
@@ -17,7 +18,7 @@ module.exports = {
           errors
         });
       }
-      await db.query('INSERT INTO comment(id_user, id_post, content) VALUES(?, ?, ?)', [id_user, id_post, content]);
+      await db.query('INSERT INTO comment(id_user, id_post, content) VALUES(?, ?, ?)', [id_user, id, content]);
       res.status(201).json({
         success: true,
         message: "Comment submitted"
@@ -45,7 +46,8 @@ module.exports = {
     }
   },
   deleteComment: async (req, res, next) => {
-    const { id_comment, id_user, id_post } = req.query;
+    const { id_user } = req.user;
+    const { id_comment, id_post } = req.query;
     try {
       const [commentResult,] = await db.query('SELECT * FROM comment WHERE id=? AND id_user=? AND id_post=?', [id_comment, id_user, id_post]);
       if (!commentResult.length) {
@@ -62,7 +64,8 @@ module.exports = {
     }
   },
   updateComment: async (req, res, next) => {
-    const { id_comment, id_user, id_post } = req.query;
+    const { id_user } = req.user;
+    const { id_comment, id_post } = req.query;
     const { content } = req.body;
     try {
       const [commentResult,] = await db.query('SELECT * FROM comment WHERE id=? AND id_user=? AND id_post=?', [id_comment, id_user, id_post]);

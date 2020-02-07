@@ -77,8 +77,8 @@ const getAllUser = async (req, res, next) => {
 }
 
 const getUserById = async (req, res, next) => {
-    const id = req.params.id_user
-    const [rows] = await db.query('select id, name, email from user where id = ?', [id])
+    const { id_user } = req.user
+    const [rows] = await db.query('select id, name, email from user where id = ?', [id_user])
     res.json({
         "success": true,
         "message": "users loaded cihui",

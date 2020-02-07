@@ -18,7 +18,7 @@ router.use(errorHandler)
 
 function notFound(req, res, next) {
     const err = new Error("Page Not Found")
-    res.status(404)
+    err.statusCode = 404
     next(err)
 }
 

@@ -1,7 +1,7 @@
 const db = require('../database')
 
 const createPost = async (req, res, next) => {
-    const id_user = req.body.id_user
+    const { id_user } = req.user
     const content = req.body.content
     const date = new Date()
     const timestamp = new Date(date.getTime() - (date.getTimezoneOffset() * 60000))
